@@ -32,6 +32,13 @@ class CommentBox extends React.Component {
     )
   }
 
+  _deleteComment(comment) {
+    const comments = [...this.state.comments];
+    const commentIndex = comments.indexOf(comment);
+    comments.splice(commentIndex, 1);
+    this.setState({comments});
+  }
+
   _addComment(author, description) {
     const comment = {
       key: this.state.comments.length + 1,
@@ -51,7 +58,8 @@ class CommentBox extends React.Component {
     return this.state.comments.map(
               c => {
                   return (
-                        <Comment author={c.author} description={c.description} key={c.key}/>
+                        <Comment author={c.author} description={c.description} key={c.key}
+                                 onDelete={this._deleteComment.bind(this)}/>
                       );
               }
     )
